@@ -56,6 +56,7 @@ class Task:
     
     def get_data_saving_path(self):
         saving_path = f"./data/{self.task}_{self.dataset}_{self.split}_{self.num}"
+        saving_path = saving_path.replace(":", "_")
         os.makedirs(saving_path, exist_ok=True)
         return saving_path
     
@@ -80,6 +81,7 @@ class Task:
     
     def __get_icl_saving_path(self):
         saving_path = f"./data/{self.task}_{self.dataset}_{self.icl_split}_{self.icl_num}"
+        saving_path = saving_path.replace(":", "_")
         os.makedirs(saving_path, exist_ok=True)
         return saving_path
     

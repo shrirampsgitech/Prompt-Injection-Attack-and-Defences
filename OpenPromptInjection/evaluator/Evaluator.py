@@ -54,7 +54,7 @@ class Evaluator:
 
     def __calc_PNA_T(self):
         if self.target_dataset == 'jfleg':
-            with open(f'baseline_out_{self.jfleg_name_base}.txt', 'w') as f:
+            with open(f'baseline_out_{self.jfleg_name_base}.txt', 'w', encoding='utf-8') as f:
                 for i, source in enumerate(self.target_task_responses):
                     try:
                         source = preprocess_jfleg_source_or_output(source)
@@ -76,7 +76,7 @@ class Evaluator:
     
     def __calc_PNA_I(self):
         if self.injected_dataset == 'jfleg':
-            with open(f'baseline_out_{self.jfleg_name_base}.txt', 'w') as f:
+            with open(f'baseline_out_{self.jfleg_name_base}.txt', 'w', encoding='utf-8') as f:
                 for i, source in enumerate(self.injected_task_responses):
                     try:
                         source = preprocess_jfleg_source_or_output(source)
@@ -98,7 +98,7 @@ class Evaluator:
     
     def __calc_ASV(self):
         if self.injected_dataset == 'jfleg':
-            with open(f'baseline_out_{self.jfleg_name_base}.txt', 'w') as f:
+            with open(f'baseline_out_{self.jfleg_name_base}.txt', 'w', encoding='utf-8') as f:
                 for i, source in enumerate(self.attack_responses):
                     try:
                         source = preprocess_jfleg_source_or_output(source)
@@ -121,7 +121,7 @@ class Evaluator:
     def __calc_MR(self):
         if self.injected_dataset == 'jfleg':
 
-            with open(f'out_{self.jfleg_name_base}.txt', 'w') as f:
+            with open(f'out_{self.jfleg_name_base}.txt', 'w', encoding='utf-8') as f:
                 for i, source in enumerate(self.attack_responses):
                     try:
                         source = preprocess_jfleg_source_or_output(source)
@@ -130,7 +130,7 @@ class Evaluator:
                     except:
                         f.write('\n')
 
-            with open(f'baseline_out_{self.jfleg_name_base}.txt', 'w') as f:
+            with open(f'baseline_out_{self.jfleg_name_base}.txt', 'w', encoding='utf-8') as f:
                 for i, source in enumerate(self.injected_task_responses):
                     try:
                         source = preprocess_jfleg_source_or_output(source)

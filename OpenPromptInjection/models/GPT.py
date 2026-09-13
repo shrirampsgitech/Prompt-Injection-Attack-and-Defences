@@ -4,14 +4,24 @@ import openai
 import tiktoken
 import time
 
+import os
+from dotenv import load_dotenv
+
 from .Model import Model
 
 
 class GPTAzure(Model):
     def __init__(self, config):
         super().__init__(config)
+        load_dotenv()
         self.deployment_name = config["api_key_info"]["deployment_name"]
-        self.api_key = config["api_key_info"]["api_keys"][config["api_key_info"]["api_key_use"]]
+        
+        env_key = os.getenv("AZURE_OPENAI_API_KEY")
+        if env_key:
+            self.api_key = env_key
+        else:
+            self.api_key = config["api_key_info"]["api_keys"][config["api_key_info"]["api_key_use"]]
+            
         self.api_version = config["api_key_info"]["api_version"]
         self.endpoint = config["api_key_info"]["endpoint"]
         self.set_API_key()
@@ -57,10 +67,15 @@ class GPTAzure(Model):
 class GPT(Model):
     def __init__(self, config):
         super().__init__(config)
-        api_keys = config["api_key_info"]["api_keys"]
-        api_pos = int(config["api_key_info"]["api_key_use"])
-        assert (0 <= api_pos < len(api_keys)), "Please enter a valid API key to use"
-        self.api_key = api_keys[api_pos]
+        load_dotenv()
+        env_key = os.getenv("OPENAI_API_KEY")
+        if env_key:
+            self.api_key = env_key
+        else:
+            api_keys = config["api_key_info"]["api_keys"]
+            api_pos = int(config["api_key_info"]["api_key_use"])
+            assert (0 <= api_pos < len(api_keys)), "Please enter a valid API key to use"
+            self.api_key = api_keys[api_pos]
         self.set_API_key()
         self.max_output_tokens = int(config["params"]["max_output_tokens"])
 

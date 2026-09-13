@@ -1,7 +1,7 @@
 {
     "model_info":{
         "provider":"palm2",
-        "name":"models/text-bison-001"
+        "name":"models/gemini-flash-latest"
     },
     "api_key_info":{
         "api_keys":[

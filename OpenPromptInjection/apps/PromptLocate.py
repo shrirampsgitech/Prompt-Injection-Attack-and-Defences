@@ -185,7 +185,8 @@ def split_sentence(sentence, nlp, tokenizer, embedding_layer, thres=0.0):
         if len(words) == 0:
             continue
 
-        inputs = tokenizer(words, return_tensors="pt", padding=True, truncation=True).to("cuda")
+        device = embedding_layer.weight.device if hasattr(embedding_layer, 'weight') else ('cuda' if torch.cuda.is_available() else 'cpu')
+        inputs = tokenizer(words, return_tensors="pt", padding=True, truncation=True).to(device)
         input_embeds = embedding_layer(inputs["input_ids"])  # [batch_size, seq_len, hidden_dim]
         embeddings = input_embeds.mean(dim=1).detach().cpu().numpy()
 
@@ -251,7 +252,8 @@ class PromptLocate:
         set_seed(42)
         self.helper_tokenizer = AutoTokenizer.from_pretrained(helper_model_name)
         self.helper_model = AutoModelForCausalLM.from_pretrained(helper_model_name, output_attentions=True)
-        self.helper_model.to('cuda')
+        device = 'cuda' if torch.cuda.is_available() else 'cpu'
+        self.helper_model.to(device)
         self.initialize_spacy()
 
     def initialize_spacy(self):

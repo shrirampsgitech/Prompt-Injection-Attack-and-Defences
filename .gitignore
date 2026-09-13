@@ -13,8 +13,30 @@ __pycache__/
 log/
 result/
 
+__pycache__/
+.DS_Store
+
+*.py[cod]
+*.pyo
+*.pyd
+
+# Ignore data files
+*.npz
+*.csv
+
+# Ignore results and logs
+log/
+result/
+
 test_promptlocate.py
 run.sh
 form_builder.py
 
 *.lock
+
+# Environment variables / secrets
+.env
+.env.*
+test_gemini.py
+sandbox.py
+

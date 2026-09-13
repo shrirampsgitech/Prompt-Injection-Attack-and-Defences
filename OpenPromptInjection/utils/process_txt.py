@@ -1,5 +1,5 @@
 def open_txt(path, data_num='all'):
-    with open(path) as file:
+    with open(path, encoding='utf-8') as file:
         lines = [line.rstrip() for line in file]
     if data_num == 'all':
         return lines

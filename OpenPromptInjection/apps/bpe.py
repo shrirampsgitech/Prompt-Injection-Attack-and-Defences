@@ -8,7 +8,7 @@ def load_subword_nmt_table(path):
     """
     table = dict()
     cur_priority = 1
-    with open(path) as f:
+    with open(path, encoding='utf-8') as f:
         for line in f:
             if '#version' in line:
                 continue
@@ -23,7 +23,7 @@ def load_merge_table(path):
     :param path: path to merge_table
     """
     table = dict()
-    with open(path) as f:
+    with open(path, encoding='utf-8') as f:
         for line in f:
             token_1, token_2, priority = line.split('\t')
             table[(token_1, token_2)] = int(priority)

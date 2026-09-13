@@ -1,3 +1,5 @@
+import subprocess
+import sys
 import os
 import time
 from tqdm import tqdm
@@ -15,18 +17,19 @@ def run(model, dataset, injected_dataset, data_num, attack_strategy, api_key_pos
     save_path = f'./result/{model}_{dataset}_{injected_dataset}_{data_num}_{attack_strategy}_{defense}'
     os.makedirs(save_path, exist_ok=True)
 
-    cmd = f"nohup python3 -u main.py \
-            --model_config_path {model_config_path} \
-            --target_data_config_path {target_data_config_path} \
-            --injected_data_config_path {injected_data_config_path} \
-            --data_num {data_num} \
-            --save_path {save_path} \
-            --attack_strategy {attack_strategy} \
-            --api_key_pos {api_key_pos} \
-            --defense {defense} \
-            > {log_file} &"
-
-    os.system(cmd)
+    log_fp = open(log_file, "w", encoding="utf-8")
+    cmd = [
+        sys.executable, "-u", "main.py",
+        "--model_config_path", model_config_path,
+        "--target_data_config_path", target_data_config_path,
+        "--injected_data_config_path", injected_data_config_path,
+        "--data_num", str(data_num),
+        "--save_path", save_path,
+        "--attack_strategy", attack_strategy,
+        "--api_key_pos", str(api_key_pos),
+        "--defense", defense
+    ]
+    subprocess.Popen(cmd, stdout=log_fp, stderr=subprocess.STDOUT)
     return log_file
 
 

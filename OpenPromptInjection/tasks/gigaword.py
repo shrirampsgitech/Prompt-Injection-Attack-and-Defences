@@ -127,7 +127,13 @@ def get_gigaword(split='test'):
     {'document': "japan 's nec corp. and UNK computer corp. of the united states said wednesday they had agreed to join forces in supercomputer sales .",
     'summary': 'nec UNK in computer sales tie-up'}
     '''
-    gg = Gigaword()
-    gg.download_and_prepare()
-    data = gg.as_dataset(split=split)
-    return data
+    try:
+        gg = Gigaword()
+        gg.download_and_prepare()
+        data = gg.as_dataset(split=split)
+        return data
+    except Exception as e:
+        raise RuntimeError(
+            "Gigaword dataset cannot be downloaded automatically because the upstream Google Drive host link has expired. "
+            "Please use other supported datasets (such as sst2, sms_spam, mrpc, hsol, rte, jfleg, math500) or place preprocessed gigaword data in ./data."
+        ) from e
